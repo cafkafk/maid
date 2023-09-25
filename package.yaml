@@ -1,0 +1,50 @@
+name: maid
+version: 0.0.0.1
+github: "cafkafk/maid"
+license: AGPL-3
+author: "Christina Sørensen"
+maintainer: "Christina Sørensen"
+copyright: "2023 Christina (cafkafk)"
+
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Education
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.org file.
+description: Please see the README on GitHub at <https://github.com/cafkafk/maid#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+  - MonadRandom >= 0.6
+  - process
+
+library:
+  source-dirs: src
+
+executables:
+  maid:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - maid
+
+tests:
+  maid-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - maid
