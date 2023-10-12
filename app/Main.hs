@@ -14,6 +14,9 @@ import qualified Data.Yaml as Y
 import GHC.Generics
 import Data.Aeson
 
+data Cred = Cred { example :: String, other :: String } deriving (Show, Generic) -- (1,2)
+instance FromJSON Cred -- (3)
+
 getRandomMaidIndex :: (MonadRandom m) => m Int
 getRandomMaidIndex = do
   let n = length maids - 1
@@ -91,6 +94,11 @@ performCleanup = do
 
 main :: IO ()
 main = do
+  content <- BS.readFile "config.yaml" -- (4)
+  let parsedContent = Y.decode content :: Maybe Cred -- (5)
+  case parsedContent of
+    Nothing -> putStrLn "[-] no config found"
+    (Just (Cred u p)) -> putStrLn ("[+] example: " ++ u ++ ", other: " ++ p)
   maid <- getRandomMaid
   putStrLn maid
   putStrLn "[+] !!!Cleaning Time!!!"
