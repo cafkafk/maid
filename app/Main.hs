@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-} -- (2)
+
 module Main where
 
 -- import MonadRandom
@@ -6,6 +8,11 @@ import GHC.IO.Exception
 import Lib
 import System.IO
 import System.Process
+
+import qualified Data.ByteString.Char8 as BS
+import qualified Data.Yaml as Y
+import GHC.Generics
+import Data.Aeson
 
 getRandomMaidIndex :: (MonadRandom m) => m Int
 getRandomMaidIndex = do
