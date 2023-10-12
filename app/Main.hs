@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-} -- (2)
+
 module Main where
 
 -- import MonadRandom
@@ -6,6 +8,14 @@ import GHC.IO.Exception
 import Lib
 import System.IO
 import System.Process
+
+import qualified Data.ByteString.Char8 as BS
+import qualified Data.Yaml as Y
+import GHC.Generics
+import Data.Aeson
+
+data Cred = Cred { example :: String, other :: String } deriving (Show, Generic) -- (1,2)
+instance FromJSON Cred -- (3)
 
 getRandomMaidIndex :: (MonadRandom m) => m Int
 getRandomMaidIndex = do
@@ -84,6 +94,11 @@ performCleanup = do
 
 main :: IO ()
 main = do
+  content <- BS.readFile "config.yaml" -- (4)
+  let parsedContent = Y.decode content :: Maybe Cred -- (5)
+  case parsedContent of
+    Nothing -> putStrLn "[-] no config found"
+    (Just (Cred u p)) -> putStrLn ("[+] example: " ++ u ++ ", other: " ++ p)
   maid <- getRandomMaid
   putStrLn maid
   putStrLn "[+] !!!Cleaning Time!!!"
