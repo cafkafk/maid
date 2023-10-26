@@ -4,6 +4,8 @@ module Main where
 
 -- import MonadRandom
 import Control.Monad.Random
+import Control.Exception (catch)
+import System.IO.Error (isDoesNotExistError)
 import GHC.IO.Exception
 import Lib
 import System.IO
@@ -92,12 +94,19 @@ performCleanup = do
   _ <- system "rm wget-log 2>/dev/null"
   system "rm wget-log.* 2>/dev/null"
 
+safeReadFile :: FilePath -> IO BS.ByteString
+safeReadFile path = (BS.readFile path) `catch` handleDoesNotExist
+  where
+    handleDoesNotExist e
+      | isDoesNotExistError e = return BS.empty
+      | otherwise = ioError e
+
 main :: IO ()
 main = do
-  content <- BS.readFile "config.yaml" -- (4)
+  content <- safeReadFile "config.yaml" -- (4)
   let parsedContent = Y.decode content :: Maybe Cred -- (5)
   case parsedContent of
-    Nothing -> putStrLn "[-] no config found"
+    Nothing -> putStrLn "[-] no config values found"
     (Just (Cred u p)) -> putStrLn ("[+] example: " ++ u ++ ", other: " ++ p)
   maid <- getRandomMaid
   putStrLn maid
