@@ -42,7 +42,7 @@ globSufGame = "./*.z64 ./*.bps "
 
 globSufPlaintext = "./*.txt ./*.org ./*.bbl ./*.tex ./*.ods ./*.md ./*.csv "
 
-globSufCode = "./*.fish ./*.i90 ./*.i03 ./*.i95 ./*.f ./*.for ./*.f03 ./*.f90 ./*.f95 ./*.yaml ./*.yml ./*.cs ./*.nix ./*.json ./*.rs ./*.jl ./*.py ./*.pl ./*.R ./*.c ./*.cpp ./*.h ./*.sh ./*.v ./*.css ./*.guile ./*.js ./*.asm ./*.acsm ./*.o ./*.s ./*.rkt ./*.lisp ./*.lsp ./*.hs ./*.hi ./*.fsi ./*.fsx ./*.fs ./*.el ./*.zig ./*.bash"
+globSufCode = "./*.fish ./*.i90 ./*.i03 ./*.i95 ./*.f ./*.for ./*.f03 ./*.f90 ./*.f95 ./*.yaml ./*.yml ./*.cs ./*.nix ./*.json ./*.rs ./*.jl ./*.py ./*.pl ./*.R ./*.c ./*.cpp ./*.h ./*.sh ./*.v ./*.css ./*.guile ./*.js ./*.asm ./*.acsm ./*.o ./*.s ./*.rkt ./*.lisp ./*.lsp ./*.hs ./*.hi ./*.fsi ./*.fsx ./*.fs ./*.el ./*.zig ./*.bash ./*.r"
 
 globSufSecret = "./*.asc ./*.gpg "
 
